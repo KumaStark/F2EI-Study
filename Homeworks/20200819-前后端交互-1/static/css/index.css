@@ -157,5 +157,14 @@ header {
 
 .content_item {
   width: 100px;
-  height:100px;
+  height: 100px;
+}
+
+.content-list img {
+  cursor: pointer;
+  transition: all 0.6s;
+}
+
+.content-list img:hover {
+  transform: scale(2);
 }
