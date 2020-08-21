@@ -64,6 +64,9 @@ function uploadFile(data) {
       //     img.className = "content_item";
       //     contentListElement.appendChild(img);
       //   }
+      if(!data){
+        alart("上传了非图片或空文件！支持的文件类型为：jpeg,jpg,bmp,tif,tiff,png,gif");
+      }
       refresh();
       setTimeout(() => {
         li.remove();

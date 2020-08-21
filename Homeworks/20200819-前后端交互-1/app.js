@@ -25,5 +25,6 @@ router.get("/favicon.ico", mainCtl.getfavicon);
 router.get("/clearPhotos", PhotosCtl.clearPhotos);
 
 app.use(router.routes());
+app.use(mainCtl.middleWare.showUrlRequest)
 
 app.listen(serverPort);
