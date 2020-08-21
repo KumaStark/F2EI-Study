@@ -8,6 +8,8 @@ let taskCount = document.querySelector("#task_count");
 let taskInprogress = 0;
 let taskFinished = 0;
 
+let autoRefreshSwitch = document.querySelector("#autoRefreshSwitch");
+
 uploadBtnElement.onclick = function () {
   uploadFileElement.click();
 };
@@ -18,6 +20,16 @@ uploadFileElement.onchange = function () {
     });
   }
 };
+
+const timerHolder = {};
+autoRefreshSwitch.onchange = function () {
+  console.log("autoRefreshSwitch", this.checked);
+  if (this.checked) {
+    timerHolder.timer = setInterval(() => { refresh(); }, 5000);
+  } else {
+    clearInterval(timerHolder.timer);
+  }
+}
 
 function setTaskCount() {
   taskCount.innerHTML = taskFinished + "/" + taskInprogress;
@@ -45,13 +57,13 @@ function uploadFile(data) {
     url: "/upload",
     data,
     success(data) {
-    //   data = JSON.parse(data);
-    //   for (let key in data) {
-    //     let img = new Image();
-    //     img.src = ["/static/upload", data[key].newName].join("/");
-    //     img.className = "content_item";
-    //     contentListElement.appendChild(img);
-    //   }
+      //   data = JSON.parse(data);
+      //   for (let key in data) {
+      //     let img = new Image();
+      //     img.src = ["/static/upload", data[key].newName].join("/");
+      //     img.className = "content_item";
+      //     contentListElement.appendChild(img);
+      //   }
       refresh()
       setTimeout(() => {
         li.remove();
@@ -77,6 +89,7 @@ function uploadFile(data) {
 }
 
 function refresh() {
+  console.log("refresh!");
   ajax({
     method: "get",
     url: "/getPhotos",
@@ -94,4 +107,7 @@ function refresh() {
   });
 }
 
-window.onload(refresh());
+window.onload = () => {
+  console.log("onload!");
+  refresh();
+};
