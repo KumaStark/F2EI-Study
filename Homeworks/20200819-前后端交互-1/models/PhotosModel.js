@@ -3,7 +3,7 @@ const dbPool = require("./database")();
 module.exports = {
   saveToDatabase: async (fileName) => {
     return new Promise((resolve, reject) => {
-      dbPool.getConnection(function (err, conn) {
+      dbPool.getConnection(function (error, conn) {
         conn.query(
           "insert into `photos` (`fileName`) values (?)",
           [fileName],
@@ -21,7 +21,7 @@ module.exports = {
   },
   getAllPhotos: async () => {
     return new Promise((resolve, reject) => {
-      dbPool.getConnection(function (err, conn) {
+      dbPool.getConnection(function (error, conn) {
         conn.query("select * from `photos`", function (err, rs) {
           if (err) {
             reject(err);
@@ -33,4 +33,18 @@ module.exports = {
       });
     });
   },
+  clearAllPhotos: async()=>{
+    return new Promise((resolve, reject) => {
+      dbPool.getConnection(function (error, conn) {
+        conn.query("truncate table `photos`", function (err, rs) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rs);
+          }
+          conn.release();
+        });
+      });
+    });
+  }
 };

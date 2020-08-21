@@ -64,7 +64,7 @@ function uploadFile(data) {
       //     img.className = "content_item";
       //     contentListElement.appendChild(img);
       //   }
-      refresh()
+      refresh();
       setTimeout(() => {
         li.remove();
         taskFinished--;

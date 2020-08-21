@@ -6,6 +6,7 @@ const defaultOptions = {
       onprogress: noop,
       onload: noop,
     };
+
 function ajax(options) {
   options = Object.assign(defaultOptions, options);
   if (options.query) {
@@ -28,8 +29,6 @@ function ajax(options) {
   }
   xhr.send(bodyData);
 }
-
-// console.log('queryParse', queryParse({a: 1, b: 2}));
 
 function queryParse(obj) {
   let arr = [];

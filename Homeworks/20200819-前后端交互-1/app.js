@@ -22,6 +22,7 @@ router.get("/", async (ctx) => {
 router.get("/getPhotos", PhotosCtl.getPhotos);
 router.post("/upload", PhotosCtl.saveToFileSystem(), PhotosCtl.proceedFiles);
 router.get("/favicon.ico", mainCtl.getfavicon);
+router.get("/clearPhotos", PhotosCtl.clearPhotos);
 
 app.use(router.routes());
 

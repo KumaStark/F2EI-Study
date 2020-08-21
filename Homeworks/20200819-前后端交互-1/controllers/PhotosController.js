@@ -46,4 +46,7 @@ module.exports = {
   getPhotos: async (ctx) => {
     ctx.body = await PhotosMdl.getAllPhotos();
   },
+  clearPhotos: async (ctx) => {
+    ctx.body = await PhotosMdl.clearAllPhotos();
+  },
 };
