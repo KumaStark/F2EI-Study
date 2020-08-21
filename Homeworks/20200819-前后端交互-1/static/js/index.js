@@ -45,14 +45,14 @@ function uploadFile(data) {
     url: "/upload",
     data,
     success(data) {
-      data = JSON.parse(data);
-    //   console.log("data", data);
-      for (let key in data) {
-        let img = new Image();
-        img.src = ["/static/upload", data[key].newName].join("/");
-        img.className = "content_item";
-        contentListElement.appendChild(img);
-      }
+    //   data = JSON.parse(data);
+    //   for (let key in data) {
+    //     let img = new Image();
+    //     img.src = ["/static/upload", data[key].newName].join("/");
+    //     img.className = "content_item";
+    //     contentListElement.appendChild(img);
+    //   }
+      refresh()
       setTimeout(() => {
         li.remove();
         taskFinished--;
@@ -81,6 +81,7 @@ function refresh() {
     method: "get",
     url: "/getPhotos",
     success(data) {
+      contentListElement.innerHTML = "";
       data = JSON.parse(data);
       console.log("data", data);
       for (let key in data) {
@@ -93,4 +94,4 @@ function refresh() {
   });
 }
 
-refresh();
+window.onload(refresh());
