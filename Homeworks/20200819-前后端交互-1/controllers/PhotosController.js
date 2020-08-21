@@ -4,14 +4,13 @@ const PhotosMdl = require("../models/PhotosModel");
 const validSuffix = ["jpeg", "jpg", "bmp", "tif", "tiff", "png", "gif"]
 
 function checkSuffix(path) {
-  let lastPos = path.lastIndexOf("."); p
+  let lastPos = path.lastIndexOf(".");
   let suffix = (path.substring(lastPos + 1)).toLowerCase();
-  console.log("suffix",suffix);
-  if (prefix in validSuffix) {
-    return true;
-  } else {
-    return false;
+  // console.log("file suffix:", suffix);
+  for (key in validSuffix) {
+    if (validSuffix[key] == suffix) { return true; }
   }
+  return false;
 }
 
 module.exports = {
@@ -51,6 +50,7 @@ module.exports = {
         // 数据库操作
         await PhotosMdl.saveToDatabase(newName);
       } else {
+        console.log("删除非图片及空文件", current.path);
         fs.unlink(current.path, deleteError);
       }
     }

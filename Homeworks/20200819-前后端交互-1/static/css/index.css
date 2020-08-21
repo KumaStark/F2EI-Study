@@ -67,6 +67,10 @@ header {
   background-image: url("../images/icon-task-succ.svg");
 }
 
+.task-progress-status-failed {
+  background-image: url("../images/icon-task-fail.svg");
+}
+
 .window-fold {
   background-image: url("../images/icon-window-fold.svg");
 }

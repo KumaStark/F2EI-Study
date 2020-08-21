@@ -14,6 +14,7 @@ uploadBtnElement.onclick = function () {
   uploadFileElement.click();
 };
 uploadFileElement.onchange = function () {
+  console.log(uploadFileElement);
   for (let file of this.files) {
     uploadFile({
       file,
@@ -57,15 +58,17 @@ function uploadFile(data) {
     url: "/upload",
     data,
     success(data) {
-      //   data = JSON.parse(data);
+      // data = JSON.parse(data);
       //   for (let key in data) {
       //     let img = new Image();
       //     img.src = ["/static/upload", data[key].newName].join("/");
       //     img.className = "content_item";
       //     contentListElement.appendChild(img);
       //   }
-      if(!data){
-        alart("上传了非图片或空文件！支持的文件类型为：jpeg,jpg,bmp,tif,tiff,png,gif");
+      if(data=="[]"){
+        taskProgressStatusElement.innerHTML =
+        '<span class="icon task-progress-status-failed"></span>';
+        alert("上传了非图片或空文件！支持的文件类型为：jpeg,jpg,bmp,tif,tiff,png,gif");
       }
       refresh();
       setTimeout(() => {
