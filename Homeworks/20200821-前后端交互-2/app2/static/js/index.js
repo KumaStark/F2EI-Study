@@ -90,11 +90,16 @@ function refresh() {
       contentListElement.innerHTML = "";
       data = JSON.parse(data);
       console.log("data", data);
-      for (let key in data) {
-        let img = new Image();
-        img.className = "content_item";
-        img.src = ["/static/upload", data[key].fileName].join("/");
-        contentListElement.appendChild(img);
+      if(data["message"]){
+        alert(`${data["message"]}（错误代码-${data["code"]}）`);
+      }else{
+        for (let key in data) {
+          let img = new Image();
+          img.className = "content_item";
+          // img.src = ["/static/upload", data[key].fileName].join("/");
+          img.src = data[key].url;
+          contentListElement.appendChild(img);
+        }
       }
     },
   });
@@ -123,6 +128,7 @@ loginBtnElement.onclick = function () {
       data = JSON.parse(data);
       console.log(this.getResponseHeader('authorization'));
       localStorage.setItem('authorization', this.getResponseHeader('authorization'))
+      refresh();
     }
   })
 }

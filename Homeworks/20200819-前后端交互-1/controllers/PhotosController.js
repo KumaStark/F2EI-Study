@@ -40,7 +40,7 @@ module.exports = {
         if (lastPos == -1) {
           lastPos = current.path.lastIndexOf("\\");
         }
-        newName = current.path.substring(lastPos + 1);
+        let newName = current.path.substring(lastPos + 1);
         uploadedFileInfo.push({
           oldName: current.name,
           newName,
