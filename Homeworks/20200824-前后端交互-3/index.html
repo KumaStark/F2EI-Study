@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        let config = {
+            TestData: 661921
+        };
+
+        function test(config) {
+            let chain = [function (config) {
+                return new Promise((resolve, reject) => {
+                    resolve(config)
+                });
+            }, undefined];
+            let promise = Promise.resolve(config);
+            let handlers = [{
+                    fulfilled: function s1(config) {
+                        console.log("s1");
+                        return config;
+                    },
+                    rejected: function e1(error) {
+                        console.log("e1");
+                        return Promise.reject(error);
+                    }
+                },
+                {
+                    fulfilled: function s2(config) {
+                        console.log("s2");
+                        return config;
+                    },
+                    rejected: function e1(error) {
+                        console.log("e1");
+                        return Promise.reject(error);
+                    }
+                }
+            ]
+            handlers.forEach(function (interceptor) {
+                chain.unshift(interceptor.fulfilled, interceptor.rejected);
+            });
+            console.log("chain:", chain);
+            while (chain.length) {
+                promise = promise.then(chain.shift(), chain.shift());
+            }
+            return promise;
+        }
+
+        async function disp() {
+            let result = await test(config);
+            console.log(result);
+        }
+        disp()
+    </script>
+</body>
+
+</html>
